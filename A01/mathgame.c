@@ -7,20 +7,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-// ask  how many questions 
-//use printf and scanf 
-//store teh number of correct q's
-//generate random number 
-//print welcome message 
-//print completion message 
 
 int main() {
   time_t t;
   srand((unsigned) time(&t));
-  int num_q;
-  int answer;
-  int real_ans;
-  int check;
+  int num_q,answer,real_ans;
   int tracker = 0;
   printf("Welcome! To Math Game!\n How many rounds do you want to play? ");
   scanf("%d",&num_q);
