@@ -25,9 +25,9 @@ void print_out(struct song p[],int length){
 }
 void update_song(struct song p[], char* edit,int id){
     char val[1028];
-    int min;
-    int sec;
-    float dancy;
+  //int min;
+  //int sec;
+  //float dancy;
     char a[] = "artist";
     char t[] = "title";
     char d[] = "duration";
@@ -46,15 +46,15 @@ void update_song(struct song p[], char* edit,int id){
 
     }else if(strcmp(edit,d)==0){
          printf("Enter minutes\n");
-//        scanf(" %i", min);
-      //  p[id].minutes = min;
-  //      printf("Enter seconds\n");
+      // scanf(" %i", min);
+      // p[id].minutes = min;
+      // printf("Enter seconds\n");
       // p[id].sec = sec;
         printf("have not been updated yet.");
     }else if(strcmp(edit,dance)==0){
          printf("Enter danceability\n");
-    //    scanf(" %d", dancy);
-     //   p[id].dance = dancy;
+       //scanf(" %d", dancy);
+       //p[id].dance = dancy;
         printf("Have not updated yet.");
 
     }else {
