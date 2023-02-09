@@ -69,6 +69,7 @@ int main(){
         index++;
      }
     print_out(listS,lenSong);
+    free(listS);
     fclose(infile);
     return 0;
     }

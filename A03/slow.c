@@ -15,12 +15,10 @@ int main(){
     printf("Pause length: ");
     scanf("%d", &length);
     printf("Text: ");
-    scanf("%s", comment);
-    int l = strlen(comment);
-    char* updateList = (char*) malloc(sizeof(char) * length+l+1);
-     for(int i=0;i<l;i++){
-        char letra = comment[i];
-        updateList[index] =letra;
+    scanf("%31s", comment);
+    char* updateList =(char*)malloc(strlen(comment)+(strlen(comment)*length)+1);
+     for(int i=0;i<strlen(comment);i++){
+        updateList[index] =comment[i];
         index ++;
         for(int j=0;j<length;j++){
             updateList[index]='.';
@@ -29,5 +27,7 @@ int main(){
     }
     updateList[index] ='\0';
     printf("%s\n",updateList);
+    free(updateList);
+    return 0;
 }
 
