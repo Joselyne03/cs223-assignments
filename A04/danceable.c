@@ -74,10 +74,14 @@ struct node* remove_node(struct node* l, int position){
     temp = temp->next;
     p = p+1;
   }
+  if((temp) == NULL){
+     return l;
+   }
   if((prev) == NULL){
-    l = temp->next;
+     l = temp->next;
+  }else{
+     prev-> next = temp-> next;
   }
-  prev-> next = temp-> next;
   free(temp);
   temp = NULL;
   return l;
@@ -86,8 +90,8 @@ struct node* remove_node(struct node* l, int position){
 
 struct song dance_node(struct node* li){
   struct song so;
-   float most_d = 0;
-   int p = 0;
+  float most_d = 0;
+  int p = 0;
    struct node* temp = li; 
   while ( temp != NULL){
      if( temp->val->dancability > most_d){
@@ -105,11 +109,13 @@ struct song dance_node(struct node* li){
 int position_node (struct song s, struct node* l){
   struct node* temp = l;
   int p = 0;
+  float dance;
   while(temp != NULL){
-    if((s.dancability) = (temp->val->dancability)){
-        p = p+1;
+    if(temp->val->dancability == s.dancability){
+        return p;
     }
     temp = temp->next;
+    p = p+1;
   }
   return p;
 }
@@ -135,16 +141,12 @@ void freeNodes(struct node* n){
 }
 
 int main() {
-    char listSize[200];
     char response;
     struct song* listS;
     char copyS[2000];
     int fileLength = 0;
     char* token;
     struct node* lSongs = NULL;
-    float most_danceable =0;
-
-    
     FILE *infile; 
     infile = fopen("songlist.csv","r");
     if(infile == NULL){
