@@ -1,7 +1,7 @@
 /*----------------------------------------------
- * Author: 
- * Date: 
- * Description
+ * Author: Joselyne Malan 
+ * Date: 02.22.23
+ * Description: A crossword program
  ---------------------------------------------*/
 #include <stdlib.h>
 #include <stdio.h>
