@@ -22,11 +22,14 @@ struct ppm_pixel** read_ppm_2d(const char* filename, int* w, int* h) {
   char comments [1028];
   unsigned char pix[3];
   //Read header
-   fscanf(pixels,"%2s\n %*s", header);
+   fgets(header,3,pixels);
+   printf("%s\n", header);
   //Ignore the comments until the last one.
-   fscanf(pixels,"%*s %*s %*s %*s %*s %*s %s \n", comments);
+   fgets(comments, 1028, pixels);
+   fgets(comments, 1028, pixels);
+   printf("The comment: %s \n" , comments);
   //reads the hieght and width and pix size
-   fscanf(pixels,"  %i %i %i ", w,h, &max_size);
+  fscanf(pixels,"  %i %i %i ", w,h, &max_size);
   //create the 2D array
   struct ppm_pixel** p = malloc (3* sizeof(struct ppm_pixel *)* (*w));
   for(int j = 0;j<*w;j++){

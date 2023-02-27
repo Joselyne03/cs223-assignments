@@ -32,6 +32,11 @@ void update_c(char **array, int x, int y, int len_x, int len_y, char word2[],cha
     col++;
   }
 }
+void free_array( char **array, int x){
+    for (int i = 0; i<x; i++){
+      free(array[i]);
+    }
+}
 
 
 int main(int argc, char* argv[]) {
@@ -42,13 +47,13 @@ int main(int argc, char* argv[]) {
   // todo: your code here
   int first_len = strlen(argv[1]);
   int second_len = strlen(argv[2]);
-  char word1[first_len];
-  strcpy(word1,argv[1]);
-  char word2[second_len];
-  strcpy(word2,argv[2]);
+  char *word1 = argv[1];
+  //strcpy(word1,argv[1]);
+  char *word2 = argv[2];
+  //strcpy(word2,argv[2]);
 
 
-  //compares strings 
+  //compares strings
   char shared_l= '0';
   int x;
   int y;
@@ -86,6 +91,7 @@ int main(int argc, char* argv[]) {
         }
         printf("\n");
     }
+  free_array(d_array, first_len);
   free(d_array);
   d_array = NULL;
   return 0;
