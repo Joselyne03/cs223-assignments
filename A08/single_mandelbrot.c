@@ -1,3 +1,7 @@
+/*Name: Joselyne Malan
+  Date: 03/22/2023
+  This program creates a mandelbrot by creating a pixel file using write_ppm file 
+*/
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -29,24 +33,20 @@ int main(int argc, char* argv[]) {
   printf("  X range = [%.4f,%.4f]\n", xmin, xmax);
   printf("  Y range = [%.4f,%.4f]\n", ymin, ymax);
 
-  // todo: your work here
-  // generate pallet
-  // we use randomization here to create the pixels.
-  time_t t;
-  srand((unsigned) time(&t));
   struct timeval tstart, tend;
   double timer;
   srand(time(0));
 
-  struct ppm_pixel* palette = malloc (sizeof(struct ppm_pixel *)* (maxIterations));
+  struct ppm_pixel* palette = malloc (sizeof(struct ppm_pixel )* (maxIterations));
   for(int i = 0;i<maxIterations;i++){
        palette[i].red = rand() % 255;
        palette[i].green = rand() % 255;
        palette[i].blue = rand() % 225;
   }
-  //here we set teh Mandelbrot Set
-  gettimeofday(&tstart,NULL);
 
+  //here we set the Mandelbrot Set
+  gettimeofday(&tstart,NULL);
+  struct ppm_pixel color;
   struct ppm_pixel** image = malloc (sizeof(struct ppm_pixel *)* (size));
   for(int a = 0;a<size;a++){
     image[a] = malloc(sizeof(struct ppm_pixel)* (size));
@@ -54,38 +54,35 @@ int main(int argc, char* argv[]) {
 
   for (int r = 0; r<size; r++){
      for(int c = 0; c<size; c++){
-        float xfrac = r/size;
-        float yfrac = c/size;
+        float xfrac = (float)c/size;
+        float yfrac = (float)r/size;
         float x0 = xmin + xfrac * (xmax - xmin);
-        float y0 = ymin + yfrac * (ymax - ymin);
-
-        int x = 0;
-        int y = 0;
-  	int iter = 0;
-  	while ((iter < maxIterations) && ((x*x) + (y*y) < (2*2))){
-           int xtmp = (x*x)-(y*y)+ x0;
+        float y0 = ymin + yfrac * (ymax - ymin); 
+        float x = 0;
+        float y = 0;
+  	    int iter = 0;
+  	    while ((iter < maxIterations) && ((x*x) + (y*y) < 2*2)){
+           float xtmp = (x*x)-(y*y)+ x0;
            y = (2*x*y) + y0;
-    	   x = xtmp;
-    	   iter++;
-  	}
+    	     x = xtmp;
+    	     iter++;
+  	    }
 
-  	if(iter < maxIterations){
-           image[r][c].red = palette[iter].red;
-           image[r][c].blue = palette[iter].blue;
-           image[r][c].green = palette[iter].green;
-     	}else{
-           image[r][c].red = 0;
-           image[r][c].blue = 0;
-           image[r][c].green = 0;
-         }//end of if statement
-
+      	if(iter < maxIterations){
+           color = palette[iter];
+        }else{
+           color.red = 0;
+           color.green = 0;
+           color.blue = 0;
+        }//end of if statement 
+        image[r][c]= color;
       }
    }//end of for-loop
   gettimeofday(&tend,NULL);
   timer = tend.tv_sec - tstart.tv_sec + (tend.tv_usec - tstart.tv_usec)/1.e6;
   printf("Computed mandelbrot set (%dx%d) in %f seconds\n", size, size, timer);
   char filename[1028];
-  sprintf(filename, "mandelbrot-%d-%ld.ppm",size,time(0));
+  snprintf(filename, 1028, "mandelbrot-%d-%ld.ppm", size,time(0));
   write_ppm_2d(filename,image,size,size);
   for (int f = 0; f<size; f++){
      free(image[f]);
