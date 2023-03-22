@@ -1,11 +1,11 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <time.h>
 #include <sys/time.h>
 #include "read_ppm.h"
 #include "write_ppm.h"
-
 int main(int argc, char* argv[]) {
   int size = 480;
   float xmin = -2.0;
@@ -31,8 +31,66 @@ int main(int argc, char* argv[]) {
 
   // todo: your work here
   // generate pallet
+  // we use randomization here to create the pixels.
+  time_t t;
+  srand((unsigned) time(&t));
+  struct timeval tstart, tend;
+  double timer;
   srand(time(0));
 
-  // compute image
+  struct ppm_pixel* palette = malloc (sizeof(struct ppm_pixel *)* (maxIterations));
+  for(int i = 0;i<maxIterations;i++){
+       palette[i].red = rand() % 255;
+       palette[i].green = rand() % 255;
+       palette[i].blue = rand() % 225;
+  }
+  //here we set teh Mandelbrot Set
+  gettimeofday(&tstart,NULL);
 
+  struct ppm_pixel** image = malloc (sizeof(struct ppm_pixel *)* (size));
+  for(int a = 0;a<size;a++){
+    image[a] = malloc(sizeof(struct ppm_pixel)* (size));
+  }
+
+  for (int r = 0; r<size; r++){
+     for(int c = 0; c<size; c++){
+        float xfrac = r/size;
+        float yfrac = c/size;
+        float x0 = xmin + xfrac * (xmax - xmin);
+        float y0 = ymin + yfrac * (ymax - ymin);
+
+        int x = 0;
+        int y = 0;
+  	int iter = 0;
+  	while ((iter < maxIterations) && ((x*x) + (y*y) < (2*2))){
+           int xtmp = (x*x)-(y*y)+ x0;
+           y = (2*x*y) + y0;
+    	   x = xtmp;
+    	   iter++;
+  	}
+
+  	if(iter < maxIterations){
+           image[r][c].red = palette[iter].red;
+           image[r][c].blue = palette[iter].blue;
+           image[r][c].green = palette[iter].green;
+     	}else{
+           image[r][c].red = 0;
+           image[r][c].blue = 0;
+           image[r][c].green = 0;
+         }//end of if statement
+
+      }
+   }//end of for-loop
+  gettimeofday(&tend,NULL);
+  timer = tend.tv_sec - tstart.tv_sec + (tend.tv_usec - tstart.tv_usec)/1.e6;
+  printf("Computed mandelbrot set (%dx%d) in %f seconds\n", size, size, timer);
+  char filename[1028];
+  sprintf(filename, "mandelbrot-%d-%ld.ppm",size,time(0));
+  write_ppm_2d(filename,image,size,size);
+  for (int f = 0; f<size; f++){
+     free(image[f]);
+  }
+  free(image);
+  free(palette);
+  return 0;
 }
