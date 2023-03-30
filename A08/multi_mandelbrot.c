@@ -181,5 +181,9 @@ int main(int argc, char* argv[]) {
     perror("Error: cannot remove shared memory\n");
     exit(1);
   } 
+  for (int f = 0; f<size; f++){
+    free(ima[f]);
+  }
+  free(ima);
   return 0;
 }
