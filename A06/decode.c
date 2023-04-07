@@ -1,7 +1,7 @@
 /*---------------------------------------------
  * Author: Josleyne Malan
  * Date: 03/01/2023
- * Description
+ * Description: Will read a ppm file and find the sercert message inside the file by reading its bits.
  ---------------------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>

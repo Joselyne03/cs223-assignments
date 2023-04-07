@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
    int r =0;
    int c = 0;
    for(int j = 0; j< input_bit; j++){
-     if( pixels[r][c].red == '\0'){ break;}
+     if( (pixels[r][c].blue == '\0') || (pixels[r][c].red == '\0') || (pixels[r][c].green == '\0')){ break;}
      else{
      unsigned char c_red = pixels[r][c].red;
      unsigned char c_green = pixels[r][c].green;
