@@ -98,25 +98,25 @@ int main(int argc, char* argv[]) {
         endCol = 480;
         startRow = 0;
         endRow = 480;
-        printf("%d) Sub-image block: col (%d,%d) to rows (%d,%d)",getpid(),startCol,endCol,startRow,endRow);
+        printf("%d) Sub-image block: col (%d,%d) to rows (%d,%d)\n",getpid(),startCol,endCol,startRow,endRow);
       }else if(i == 1){
         startCol = 480;
         endCol = 240;
         startRow = 0;
         endRow = 480;
-        printf("%d) Sub-image block: col (%d,%d) to rows (%d,%d)",getpid(),startCol,endCol,startRow,endRow);
+        printf("%d) Sub-image block: col (%d,%d) to rows (%d,%d)\n",getpid(),startCol,endCol,startRow,endRow);
       }else if(i==2){
         startCol = 0;
         endCol = 480;
         startRow = 480;
         endRow = 240;
-        printf("%d)Sub-image block: col (%d,%d) to rows (%d,%d)",getpid(),startCol,endCol,startRow,endRow);
+        printf("%d)Sub-image block: col (%d,%d) to rows (%d,%d)\n",getpid(),startCol,endCol,startRow,endRow);
       }else if(i==3){
         startCol = 480;
         endCol = 240;
         startRow = 480;
         endRow = 240;
-        printf("%d)Sub-image block: col (%d,%d) to rows (%d,%d) ",getpid(),startCol,endCol,startRow,endRow);
+        printf("%d)Sub-image block: col (%d,%d) to rows (%d,%d)\n",getpid(),startCol,endCol,startRow,endRow);
       }
       for (int r = startRow; r <endRow; r++){
         for(int c=startCol; c<endCol; c++){
@@ -145,7 +145,7 @@ int main(int argc, char* argv[]) {
           }
         }
       }//end of for-loop
-      exit(0);
+       exit(0);
       }//child processor   
   }
   for (int i = 0; i < 4; i++) {
@@ -180,10 +180,10 @@ int main(int argc, char* argv[]) {
   if (shmctl(shm1, IPC_RMID, 0) == -1) {
     perror("Error: cannot remove shared memory\n");
     exit(1);
-  } 
+  }   
   for (int f = 0; f<size; f++){
     free(ima[f]);
   }
-  free(ima);
+   free(ima);
   return 0;
 }
