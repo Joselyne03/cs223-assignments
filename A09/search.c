@@ -23,12 +23,9 @@ struct list_info{
 };
 void *findNum(void* ars){
   struct list_info *curr = (struct list_info*)ars;
-  int id = curr ->id;
   int *list_c = curr->list;
   int start = curr ->start;
   int end = curr->end;
-  int range = curr->range;
-  int num_thread = curr->num_thread;
   int value = curr->key_value;
   int index = -1;
   for (int a=start; a< end;a++){
@@ -64,7 +61,6 @@ int main(int argc, char** argv) {
   printf("Enter a value to search: ");
   scanf("%i",&value);//place a caution error statement
   fread(&length,sizeof(int),1,f);
-  printf("%i \n",length);
   int *list = malloc(sizeof(int) * length);
   int r = 0;
   while (fread(&num,sizeof(int),1,f) == 1){
