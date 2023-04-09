@@ -16,7 +16,6 @@ struct list_info{
   int start;
   int end;
   int range; 
-  int num_thread;
   int key_value;
   int index;
 
@@ -84,7 +83,6 @@ int main(int argc, char** argv) {
     thread_ids[i].list = list;
     thread_ids[i].range = length / N_thread;
     thread_ids[i].key_value = value;
-    thread_ids[i].num_thread = N_thread;
     pthread_create(&num_thread[i], NULL, findNum, &thread_ids[i]);
   }
 
