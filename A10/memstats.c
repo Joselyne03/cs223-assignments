@@ -1,3 +1,9 @@
+/*
+Name: Joselyne Malan
+Date: 04/19/2023
+This program uses the personalized malloc and free functions to creates an array with such data type 
+A memstat os used to track the bytes and its allocation as it goes through the program
+*/
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -10,6 +16,7 @@
 #define BUFFER 5
 #define LOOP 10
 
+
 struct chunk {
   int size;
   int used;
@@ -17,6 +24,40 @@ struct chunk {
 };
 
 void memstats(struct chunk* freelist, void* buffer[], int len) {
+  struct chunk* curr = freelist;
+  int u = 0;
+  int f =0;
+  int t; 
+  int usedMem = 0;
+  int freeMem = 0;
+  int totalMem =0;
+  int usedTotal = 0;
+  int difference;
+  float underutil;
+  for(int i=0; i<len; i++){
+    if(buffer[i] != NULL){
+     struct chunk* mem = (struct chunk*)buffer[i] - 1;
+      u = 1 + u;
+      usedMem = mem->size + usedMem;
+      usedTotal = mem->used + usedTotal;
+    }
+  }
+  while (curr != NULL){
+    f = f+1;
+    freeMem = curr->size + freeMem;
+    curr = curr->next;
+  }
+  t = f+u;
+  totalMem = usedMem + freeMem;
+  difference = usedMem - usedTotal;
+  underutil = (float)difference / usedMem;
+
+
+  printf("Total blocks: %d Free blocks: %d Used blocks: %d\n", t,f,u);
+  printf("Total memory allocated: %d Free memory: %d Used memory: %d\n", totalMem, freeMem, usedMem);
+  printf("Underutilized memory: %.2f\n", underutil);
+
+
 }
 
 int main ( int argc, char* argv[]) {
@@ -81,3 +122,4 @@ int main ( int argc, char* argv[]) {
 
   return 0 ;
 }
+
